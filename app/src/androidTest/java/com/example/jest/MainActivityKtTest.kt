@@ -25,21 +25,22 @@ class MainActivityKtTest {
 
     @Test
     fun greeting() {
-        val name="Rockstar DEV!"
+        val title="Hello Rockstar DEV!"
         composeTestRule.setContent {
             JestTheme() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting(name = name)
+                    Greeting(title = title)
                 }
             }
         }
 
-        composeTestRule.onNodeWithText(name, useUnmergedTree = true).assertExists()
-        composeTestRule.onNodeWithText("Increment Count",useUnmergedTree = true).assertIsDisplayed().performClick()
+        composeTestRule.onNodeWithText(title, useUnmergedTree = true).assertExists()
 
+        composeTestRule.onNodeWithText("0",useUnmergedTree = true).assertExists()
+        composeTestRule.onNodeWithText("Increment Count",useUnmergedTree = true).assertIsDisplayed().performClick()
         composeTestRule.onNodeWithText("1",useUnmergedTree = true).assertExists()
     }
 }

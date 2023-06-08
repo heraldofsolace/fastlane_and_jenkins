@@ -14,8 +14,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,14 +45,14 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val counterState= remember {
-        0
-    }
+fun Greeting(title: String, modifier: Modifier = Modifier) {
+
+    var counterState by remember { mutableStateOf(0) }
+
     Scaffold(
         topBar = {
             Text(
-                text = "Hello $name!",
+                text = title,
                 modifier = modifier
             )
         }
@@ -68,7 +71,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 Button(
                     modifier = Modifier,
                     onClick = {
-                        incrementCounter(counterState)
+                        counterState= incrementCounter(counterState)
                     }) {
                     Text(text = "Increment Count")
                 }
