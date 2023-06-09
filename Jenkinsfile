@@ -2,6 +2,12 @@ pipeline {
  agent any
 
   stages {
+      stage('Set Ruby Path') {
+        steps {
+              sh 'rbenv local 3.2.2'
+        }
+      }
+
     stage('Install dependencies $Lint'){
         steps{
             parallel(
