@@ -2,16 +2,21 @@ pipeline {
  agent any
 
   stages {
-    stage('Lint & Clean Build Folder') {
+    stage('Install dependencies $Lint'){
+        steps{
+            parallel(
+                      'checkStyle': {
+                        sh './gradlew checkStyle'
+                      },
+                      'Install Dependencies': {
+                        sh 'bundle install'
+                      }
+                    )
+        }
+    }
+    stage('Clean Build Folder') {
       steps {
-        parallel(
-          'checkStyle': {
-            sh './gradlew checkStyle'
-          },
-          'Clean Build': {
             sh 'bundle exec fastlane clean'
-          }
-        )
       }
     }
 
