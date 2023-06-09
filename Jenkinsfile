@@ -9,7 +9,7 @@ pipeline {
             sh './gradlew checkStyle'
           },
           'Clean Build': {
-            sh 'fastlane clean'
+            sh 'bundle exec fastlane clean'
           }
         )
       }
@@ -23,7 +23,7 @@ pipeline {
       }
       steps {
         sh 'emulator @Pixel_4_API_33'
-        sh 'fastlane test'
+        sh 'bundle exec fastlane test'
       }
     }
 
@@ -31,12 +31,12 @@ pipeline {
       parallel {
         stage('codeCoverageReport') {
           steps {
-            sh 'fastlane code_coverage'
+            sh 'bundle exec fastlane code_coverage'
           }
         }
         stage('incrementVersionCode') {
           steps {
-            sh 'fastlane increment_vc'
+            sh 'bundle exec fastlane increment_vc'
           }
         }
       }
@@ -51,7 +51,7 @@ pipeline {
       steps {
         script {
           if (env.BRANCH_NAME ==~ /main/) {
-            sh 'fastlane deploy'
+            sh 'bundle exec fastlane deploy'
           }
         }
       }
