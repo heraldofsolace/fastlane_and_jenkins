@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    label 'android'
-  }
+ agent any
 
   stages {
     stage('Lint & Clean Build Folder') {
