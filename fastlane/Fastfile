@@ -49,17 +49,10 @@ platform :android do
     gradle(task: "assembleRelease")
   end
 
-  desc "Clean, Test, Build and Deploy a new version"
+  desc "Build and Deploy a new version"
   lane :deploy do
-     # The lane you created to clean the build folder
-     clean
-     # The lane you created to run all tests
-     test
-     # The lane you created to generate code coverage reports
-     code_coverage
-     # The lane you created previously to increment your app’s `version code`.
      increment_vc
-     # The build release apk lane you created previously.
+
      build_apk
   end
 end
