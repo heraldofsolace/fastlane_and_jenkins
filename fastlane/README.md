@@ -15,6 +15,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
+### android clean
+
+```sh
+[bundle exec] fastlane android clean
+```
+
+Clean Build Folder
+
 ### android test
 
 ```sh
@@ -22,6 +30,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ```
 
 Runs all the tests
+
+### android code_coverage
+
+```sh
+[bundle exec] fastlane android code_coverage
+```
+
+Generate jacoco Code Coverage Reports
 
 ### android increment_vc
 
@@ -45,7 +61,7 @@ Build release app bundle
 [bundle exec] fastlane android deploy
 ```
 
-Test, Build and Deploy a new version
+Clean, Test, Build and Deploy a new version
 
 ----
 

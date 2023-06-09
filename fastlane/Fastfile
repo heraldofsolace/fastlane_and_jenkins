@@ -16,6 +16,12 @@
 default_platform(:android)
 
 platform :android do
+
+  desc "Clean Build Folder"
+  lane :clean do
+    gradle(task: "clean")
+  end
+
   desc "Runs all the tests"
   lane :test do
     gradle(
@@ -24,6 +30,11 @@ platform :android do
           "coverage" => "true"
         }
     )
+  end
+
+  desc "Generate jacoco Code Coverage Reports"
+  lane :code_coverage do
+    gradle(tasks: ["createReleaseUnitTestCoverageReport","jacocoTestReportAndroidTest"])
   end
 
   desc "Increment version code"
@@ -35,12 +46,17 @@ platform :android do
 
   desc "Build release app bundle"
   lane :build_apk do
-    gradle(task: "clean assembleRelease")
+    gradle(task: "assembleRelease")
   end
 
-  desc "Test, Build and Deploy a new version"
+  desc "Clean, Test, Build and Deploy a new version"
   lane :deploy do
+     # The lane you created to clean the build folder
+     clean
+     # The lane you created to run all tests
      test
+     # The lane you created to generate code coverage reports
+     code_coverage
      # The lane you created previously to increment your app’s `version code`.
      increment_vc
      # The build release apk lane you created previously.

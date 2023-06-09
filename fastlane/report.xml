@@ -5,17 +5,57 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000969">
+      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.000627">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: Switch to android test lane" time="0.000414">
+      <testcase classname="fastlane.lanes" name="01: Switch to android clean lane" time="0.000403">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: test connectedAndroidTest" time="313.492109">
+      <testcase classname="fastlane.lanes" name="02: clean" time="7.046176">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: Switch to android test lane" time="0.004368">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: test connectedAndroidTest" time="101.47973">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: Switch to android code_coverage lane" time="0.001455">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: createReleaseUnitTestCoverageReport jacocoTestReportAndroidTest" time="73.99513">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: Switch to android increment_vc lane" time="0.004687">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: increment_version_code" time="0.080664">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: Switch to android build_apk lane" time="0.002818">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: assembleRelease" time="35.737532">
         
       </testcase>
     

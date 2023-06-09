@@ -1,17 +1,34 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'jacoco'
 }
 
 android {
     namespace 'com.example.jest'
     compileSdk 33
 
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+                excludes = ['jdk.internal.*']
+            }
+        }
+    }
+
+    // If you're using Android Gradle Plugin 4.0.0 or above, add the following
+    // configuration to generate Jacoco reports for instrumentation tests
+    jacoco {
+        version "0.8.7"
+    }
+
     defaultConfig {
         applicationId "com.example.jest"
         minSdk 24
         targetSdk 33
-        versionCode 3
+        versionCode 6
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,6 +39,7 @@ android {
 
     buildTypes {
         release {
+            testCoverageEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -57,12 +75,33 @@ dependencies {
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+}
+
+// Add the following Jacoco configuration for instrumentation tests (androidTests)
+task jacocoTestReportAndroidTest(type: JacocoReport, dependsOn: "connectedAndroidTest") {
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            '**/*TestCase*.*'
+    ]
+
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def androidTestTree = fileTree(dir: "${buildDir}/intermediates/classes/androidTest/debug", excludes: fileFilter)
+
+    classDirectories.setFrom(files([debugTree, androidTestTree]))
+    additionalSourceDirs.from = files(android.sourceSets.main.java.srcDirs)
+    sourceDirectories.from = files(android.sourceSets.main.java.srcDirs)
+    executionData.from = fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ])
 }
