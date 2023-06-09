@@ -2,11 +2,6 @@ pipeline {
  agent any
 
   stages {
-      stage('Set Ruby Path') {
-        steps {
-              sh 'rbenv local 3.2.2'
-        }
-      }
 
     stage('Install dependencies $Lint'){
         steps{
@@ -15,7 +10,7 @@ pipeline {
                         sh './gradlew checkStyle'
                       },
                       'Install Dependencies': {
-                        sh 'bundle install'
+                        sh 'RBENV_VERSION=3.2.2 rbenv exec bundle install'
                       }
                     )
         }
