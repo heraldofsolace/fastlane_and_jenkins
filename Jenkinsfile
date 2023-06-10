@@ -4,7 +4,9 @@ pipeline {
   stages {
   stage('PATH'){
   steps{
-  sh 'rbenv local 3.2.2'
+  sh 'which rbenv'
+  sh 'rbenv versions'
+  sh 'rbenv global 3.2.2'
   }
   }
 
