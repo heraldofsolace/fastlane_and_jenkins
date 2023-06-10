@@ -10,7 +10,7 @@ pipeline {
                         sh './gradlew lint'
                       },
                       'Install Dependencies': {
-                        sh 'RBENV_VERSION=3.2.2 rbenv exec bundle install'
+                        sh 'bundle install'
                       }
                     )
         }
@@ -28,7 +28,7 @@ pipeline {
         }
       }
       steps {
-        sh 'emulator @Pixel_4_API_33'
+        sh 'emulator @Pixel_4_API_33 -no-window'
         sh 'bundle exec fastlane test'
       }
     }
