@@ -17,7 +17,7 @@ pipeline {
                         sh './gradlew lint'
                       },
                       'Install Dependencies': {
-                        sh 'bundle install --path /Users/user/.rbenv/versions/3.2.2/lib/ruby/3.2.0/bundler.rb'
+                        sh 'bundle install'
                       }
                     )
         }
