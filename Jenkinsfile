@@ -16,12 +16,6 @@ pipeline {
                       'Lint': {
                         sh './gradlew lint'
                       },
-                      'Lint3': {
-                                              sh 'rbenv versions'
-                                            },
-                                            'Lint03': {
-                                                                                          sh 'gem list bundler'
-                                                                                        },
                       'Install Dependencies': {
                         sh 'bundle install'
                       }
