@@ -5,9 +5,10 @@ pipeline {
 
     stage('Install dependencies & Lint'){
         steps{
+        sh 'rbenv local 3.2.2'
             parallel(
-                      'checkStyle': {
-                        sh 'which rbenv'
+                      'Lint': {
+                        sh './gradlew lint'
                       },
                       'Install Dependencies': {
                         sh 'bundle install'
