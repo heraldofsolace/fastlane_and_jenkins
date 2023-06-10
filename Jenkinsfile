@@ -2,10 +2,14 @@ pipeline {
  agent any
 
   stages {
+  stage('PATH'){
+  steps{
+  sh 'rbenv local 3.2.2'
+  }
+  }
 
     stage('Install dependencies & Lint'){
         steps{
-        sh 'rbenv local 3.2.2'
             parallel(
                       'Lint': {
                         sh './gradlew lint'
