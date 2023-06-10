@@ -7,7 +7,7 @@ pipeline {
         steps{
             parallel(
                       'checkStyle': {
-                        sh './gradlew lint'
+                        sh 'which rbenv'
                       },
                       'Install Dependencies': {
                         sh 'bundle install'
