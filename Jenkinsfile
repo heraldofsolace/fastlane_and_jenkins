@@ -4,7 +4,7 @@ pipeline {
   stages {
   stage('PATH'){
   steps{
-  sh 'rm -rf *'
+  sh 'which rbenv'
   sh 'rbenv versions'
   sh 'gem list bundler'
   }
