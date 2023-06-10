@@ -6,7 +6,7 @@ pipeline {
   steps{
   sh 'which rbenv'
   sh 'rbenv versions'
-  sh 'rbenv global 3.2.2'
+  sh 'gem list bundler'
   }
   }
 
