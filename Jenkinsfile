@@ -10,18 +10,18 @@ pipeline {
   }
   }
 
-    stage('Install dependencies & Lint'){
-        steps{
-            parallel(
-                      'Lint': {
-                        sh './gradlew lint'
-                      },
-                      'Install Dependencies': {
-                        sh 'bundle install'
-                      }
-                    )
-        }
-    }
+//     stage('Install dependencies & Lint'){
+//         steps{
+//             parallel(
+//                       'Lint': {
+//                         sh './gradlew lint'
+//                       },
+//                       'Install Dependencies': {
+//                         sh 'bundle install'
+//                       }
+//                     )
+//         }
+//     }
     stage('Clean Build Folder') {
       steps {
             sh 'bundle exec fastlane clean'
