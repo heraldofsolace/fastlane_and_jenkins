@@ -7,7 +7,8 @@ pipeline {
   sh 'which rbenv'
   sh 'rbenv versions'
   sh 'gem list bundler'
-  sh 'emulator -avd Pixel_4_API_33 -no-window -wipe-data -no-audio -no-boot-anim & wait-for-device'
+  sh 'emulator -avd Pixel_4_API_33 -no-window -wipe-data -no-audio -no-boot-anim'
+  sh 'adb wait-for-device'
   }
   }
 
