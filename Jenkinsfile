@@ -35,7 +35,7 @@ pipeline {
         }
       }
       steps {
-        sh 'emulator @Pixel_4_API_33 -no-window'
+        sh 'emulator -avd Pixel_4_API_33 -no-window -wipe-data'
         sh 'bundle exec fastlane test'
       }
     }
