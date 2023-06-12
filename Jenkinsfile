@@ -16,9 +16,9 @@ pipeline {
                       'Lint': {
                         sh './gradlew lint'
                       },
-                      'Install Dependencies': {
-                        sh 'bundle install'
-                      }
+//                       'Install Dependencies': {
+//                         sh 'bundle install'
+//                       }
                     )
         }
     }
