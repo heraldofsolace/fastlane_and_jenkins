@@ -88,8 +88,9 @@ pipeline {
             cleanWs()
         }
 
-        always{
-            // This block runs everytime
-        }
+//        always{
+//            // This block runs everytime
+//            sh 'echo '
+//        }
     }
 }
