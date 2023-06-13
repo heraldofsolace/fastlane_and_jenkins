@@ -40,49 +40,47 @@ pipeline {
             }
         }
 
-        stage('Generate Test Code Coverage Report & Increment Version Code') {
-            parallel {
-                stage('codeCoverageReport') {
-                    steps {
-                        sh 'bundle exec fastlane code_coverage'
-                    }
-                }
-                stage('incrementVersionCode') {
-                    steps {
-                        sh 'bundle exec fastlane increment_vc'
-                    }
-                }
-            }
-        }
-
-        stage('Deploy') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
-            steps {
-                script {
-                    if (env.BRANCH_NAME ==~ /main/) {
-                        sh 'bundle exec fastlane deploy'
-                    }
-                }
-            }
-        }
+//        stage('Generate Test Code Coverage Report & Increment Version Code') {
+//            parallel {
+//                stage('codeCoverageReport') {
+//                    steps {
+//                        sh 'bundle exec fastlane code_coverage'
+//                    }
+//                }
+//                stage('incrementVersionCode') {
+//                    steps {
+//                        sh 'bundle exec fastlane increment_vc'
+//                    }
+//                }
+//            }
+//        }
+//
+//        stage('Deploy') {
+//            when {
+//                expression {
+//                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+//                }
+//            }
+//            steps {
+//                script {
+//                    if (env.BRANCH_NAME ==~ /main/) {
+//                        sh 'bundle exec fastlane deploy'
+//                    }
+//                }
+//            }
+//        }
     }
 
     post {
         success {
             jacoco(
-                    //execPattern: '**/build/jacoco/*.exec',
-                    //classPattern: '**/build/classes/java/main',
-                    sourcePattern: '**/src/main',
-                    classPattern: "**/classes",
+                    execPattern: '**/build/jacoco/*.exec',
+                    sourcePattern: '**/src/main/java',
+                    classPattern: "**/build/classes/java/main",
                     sourceInclusionPattern: '**/*.kt',
                     changeBuildStatus:true,
                     deltaBranchCoverage:'80'
             )
-            archiveArtifacts(artifacts: '**/build/libs/*.*', onlyIfSuccessful: true)
             archiveArtifacts(allowEmptyArchive: true, artifacts: 'app/build/outputs/apk/release/*.apk')
         }
 

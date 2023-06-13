@@ -61,7 +61,7 @@ Build release app bundle
 [bundle exec] fastlane android deploy
 ```
 
-Clean, Test, Build and Deploy a new version
+Build and Deploy a new version
 
 ----
 
