@@ -6,7 +6,7 @@ pipeline {
             steps {
                 parallel(
                         'Start Emulator': {
-                            sh 'emulator -avd Pixel_4_API_33 -no-audio -no-window &'
+                            sh 'emulator -avd Pixel_4_API_33 -no-audio -no-window -wipe-data &'
                         },
                         'Install Dependencies': {
                             sh 'bundle install'
