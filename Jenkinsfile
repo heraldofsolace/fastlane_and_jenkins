@@ -9,9 +9,8 @@ pipeline {
   sh 'gem list bundler'
   sh 'emulator -avd Pixel_4_API_33 -no-audio -no-window &'
   script {
-                      def waitCmd = "adb wait-for-device shell getprop init.svc.bootanim"
-                      sh """
-                          until \$(($waitCmd | grep -m 1 stopped)); do
+   sh """
+   until (adb wait-for-device shell getprop init.svc.bootanim | grep -m 1 stopped); do
                               echo "Waiting for emulator to boot..."
                               sleep 1
                           done
