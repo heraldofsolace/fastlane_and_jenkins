@@ -8,11 +8,15 @@ pipeline {
   sh 'rbenv versions'
   sh 'gem list bundler'
   sh 'emulator -avd Pixel_4_API_33 -no-audio -no-window &'
-  sh 'WAIT_CMD="adb wait-for-device shell getprop init.svc.bootanim"
-      until $WAIT_CMD | grep -m 1 stopped; do
-        echo "Waiting for emulator to boot..."
-        sleep 1
-      done'
+  script {
+                      def waitCmd = "adb wait-for-device shell getprop init.svc.bootanim"
+                      sh """
+                          until \$(($waitCmd | grep -m 1 stopped)); do
+                              echo "Waiting for emulator to boot..."
+                              sleep 1
+                          done
+                      """
+                  }
   sh 'adb shell input keyevent 82'
   }
   }
