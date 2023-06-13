@@ -2,11 +2,6 @@ pipeline {
  agent any
 
   stages {
-  stage('Clean Workspace') {
-        steps {
-          cleanWs()
-        }
-      }
   stage('PATH'){
   steps{
   sh 'which rbenv'
@@ -90,6 +85,7 @@ pipeline {
     always {
       archiveArtifacts(allowEmptyArchive: true, artifacts: 'app/build/outputs/apk/release/*.apk')
       sh 'adb emu kill'
+      cleanWs()
     }
   }
 }
