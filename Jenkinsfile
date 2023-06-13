@@ -76,10 +76,11 @@ pipeline {
             jacoco(
                     execPattern: '**/build/jacoco/*.exec',
                     sourcePattern: '**/src/main/java',
-                    classPattern: "**/build/classes/java/main",
+                    classPattern: "**/build/tmp/kotlin-classes/",
                     //sourceInclusionPattern: '**/*.kt',
                     //changeBuildStatus:true,
                     //deltaBranchCoverage:'80'
+                    sourceInclusionPattern: '**/*.kt'
             )
             archiveArtifacts(allowEmptyArchive: true, artifacts: 'app/build/outputs/apk/release/*.apk')
         }
