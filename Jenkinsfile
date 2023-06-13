@@ -7,6 +7,7 @@ pipeline {
   sh 'which rbenv'
   sh 'rbenv versions'
   sh 'gem list bundler'
+
 // sh 'emulator -avd Pixel_4_API_33 -no-audio -no-window &'
 //   script {
 //    sh """
@@ -20,11 +21,11 @@ pipeline {
   }
   }
 
-    stage('Install dependencies & Lint'){
+    stage('Install dependencies & Start Emulator'){
         steps{
             parallel(
-                      'Lint': {
-                        sh './gradlew lint'
+                      'Start Emulator': {
+                        sh 'emulator -avd Pixel_4_API_33 -no-audio -no-window &'
                       },
                       'Install Dependencies': {
                         sh 'bundle install'
@@ -45,7 +46,15 @@ pipeline {
         }
       }
       steps {
-        sh 'emulator -avd Pixel_4_API_33 -no-window -wipe-data'
+        script {
+         sh """
+         until (adb wait-for-device shell getprop init.svc.bootanim | grep -m 1 stopped); do
+                                    echo "Waiting for emulator to boot..."
+                                    sleep 1
+                                done
+                            """
+                        }
+        sh 'adb shell input keyevent 82'
         sh 'bundle exec fastlane test'
       }
     }
