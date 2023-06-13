@@ -74,13 +74,15 @@ pipeline {
     post {
         success {
             jacoco(
-                    execPattern: '**/build/jacoco/*.exec',
+                    //execPattern: '**/build/jacoco/*.exec',
                     //classPattern: '**/build/classes/java/main',
-                    //sourcePattern: '**/src/main',
-                    classPattern: "**/classes", sourcePattern: "**/src/main/java",
+                    sourcePattern: '**/src/main',
+                    classPattern: "**/classes",
+                    sourceInclusionPattern: '**/*.kt',
                     changeBuildStatus:true,
                     deltaBranchCoverage:'80'
             )
+            archiveArtifacts(artifacts: '**/build/libs/*.*', onlyIfSuccessful: true)
             archiveArtifacts(allowEmptyArchive: true, artifacts: 'app/build/outputs/apk/release/*.apk')
         }
 
