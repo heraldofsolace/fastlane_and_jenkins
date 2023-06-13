@@ -75,8 +75,9 @@ pipeline {
         success {
             jacoco(
                     execPattern: '**/build/jacoco/*.exec',
-                    classPattern: '**/build/classes/java/main',
-                    sourcePattern: '**/src/main',
+                    //classPattern: '**/build/classes/java/main',
+                    //sourcePattern: '**/src/main',
+                    classPattern: "**/classes", sourcePattern: "**/src/main/java",
                     changeBuildStatus:true,
                     deltaBranchCoverage:'80'
             )
