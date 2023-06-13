@@ -83,9 +83,13 @@ pipeline {
             archiveArtifacts(allowEmptyArchive: true, artifacts: 'app/build/outputs/apk/release/*.apk')
         }
 
-        always {
+        cleanup {
             sh 'adb emu kill'
             cleanWs()
+        }
+
+        always{
+            // This block runs everytime
         }
     }
 }
