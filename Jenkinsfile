@@ -76,8 +76,7 @@ pipeline {
             jacoco(
                     execPattern: '**/build/jacoco/*.exec',
                     sourcePattern: '**/src/main/java',
-                    classPattern: "**/build/tmp/kotlin-classes/",
-                    //sourceInclusionPattern: '**/*.kt',
+                    classPattern: "**/build/tmp/kotlin-classes/release",
                     //changeBuildStatus:true,
                     //deltaBranchCoverage:'80'
                     sourceInclusionPattern: '**/*.kt'
