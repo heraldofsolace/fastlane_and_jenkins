@@ -65,7 +65,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.activity:activity-compose:1.5.1'
@@ -83,25 +82,3 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }
 
-// Add the following Jacoco configuration for instrumentation tests (androidTests)
-task jacocoTestReportAndroidTest(type: JacocoReport, dependsOn: "connectedAndroidTest") {
-    def fileFilter = [
-            '**/R.class',
-            '**/R$*.class',
-            '**/BuildConfig.*',
-            '**/Manifest*.*',
-            '**/*Test*.*',
-            '**/*TestCase*.*'
-    ]
-
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-    def androidTestTree = fileTree(dir: "${buildDir}/intermediates/classes/androidTest/debug", excludes: fileFilter)
-
-    classDirectories.setFrom(files([debugTree, androidTestTree]))
-    additionalSourceDirs.from = files(android.sourceSets.main.java.srcDirs)
-    sourceDirectories.from = files(android.sourceSets.main.java.srcDirs)
-    executionData.from = fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec",
-            "outputs/code-coverage/connected/*coverage.ec"
-    ])
-}

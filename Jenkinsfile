@@ -14,6 +14,7 @@ pipeline {
                 )
             }
         }
+
         stage('Clean Build Folder') {
             steps {
                 sh 'bundle exec fastlane clean'
@@ -40,35 +41,26 @@ pipeline {
             }
         }
 
-//        stage('Generate Test Code Coverage Report & Increment Version Code') {
-//            parallel {
-//                stage('codeCoverageReport') {
-//                    steps {
-//                        sh 'bundle exec fastlane code_coverage'
-//                    }
-//                }
-//                stage('incrementVersionCode') {
-//                    steps {
-//                        sh 'bundle exec fastlane increment_vc'
-//                    }
-//                }
-//            }
-//        }
-//
-//        stage('Deploy') {
-//            when {
-//                expression {
-//                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-//                }
-//            }
-//            steps {
-//                script {
-//                    if (env.BRANCH_NAME ==~ /main/) {
-//                        sh 'bundle exec fastlane deploy'
-//                    }
-//                }
-//            }
-//        }
+        stage('Build Release APK') {
+            steps {
+                sh 'bundle exec fastlane build_apk'
+            }
+        }
+
+        stage('Build App bundle and Deploy to Play Store') {
+            when {
+                expression {
+                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                }
+            }
+            steps {
+                script {
+                    if (env.BRANCH_NAME ==~ /main/) {
+                        sh 'bundle exec fastlane deploy'
+                    }
+                }
+            }
+        }
     }
 
     post {
@@ -77,8 +69,6 @@ pipeline {
                     execPattern: '**/build/jacoco/*.exec',
                     sourcePattern: '**/src/main/java',
                     classPattern: "**/build/tmp/kotlin-classes/release",
-                    //changeBuildStatus:true,
-                    //deltaBranchCoverage:'80'
                     sourceInclusionPattern: '**/*.kt'
             )
             archiveArtifacts(allowEmptyArchive: true, artifacts: 'app/build/outputs/apk/release/*.apk')
@@ -88,10 +78,5 @@ pipeline {
             sh 'adb emu kill'
             cleanWs()
         }
-
-//        always{
-//            // This block runs everytime
-//            sh 'echo '
-//        }
     }
 }

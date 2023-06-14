@@ -32,11 +32,6 @@ platform :android do
     )
   end
 
-  desc "Generate jacoco Code Coverage Reports"
-  lane :code_coverage do
-    gradle(tasks: ["createReleaseUnitTestCoverageReport","jacocoTestReportAndroidTest"])
-  end
-
   desc "Increment version code"
    lane :increment_vc do
      increment_version_code(
@@ -44,15 +39,34 @@ platform :android do
      )
   end
 
+  desc "Build Release APK"
+   lane :build_apk do
+     gradle(task:"assembleRelease")
+  end
+
   desc "Build release app bundle"
-  lane :build_apk do
-    gradle(task: "assembleRelease")
+  lane :build_bundle do
+     # Set the signing configurations from environment variables
+     keystore_path = ENV['ANDROID_KEYSTORE_PATH']
+     keystore_alias = ENV['ANDROID_KEYSTORE_ALIAS']
+     keystore_password = ENV['ANDROID_KEYSTORE_PASSWORD']
+
+     # Use the signing configurations in your build process
+      gradle(
+       task: "bundleRelease",
+       properties: {
+         "android.injected.signing.store.file" => keystore_path,
+         "android.injected.signing.store.password" => keystore_password,
+         "android.injected.signing.key.alias" => keystore_alias,
+         "android.injected.signing.key.password" => keystore_password
+        }
+     )
   end
 
   desc "Build and Deploy a new version"
   lane :deploy do
      increment_vc
 
-     build_apk
+     build_bundle
   end
 end
