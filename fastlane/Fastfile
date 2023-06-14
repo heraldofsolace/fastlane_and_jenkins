@@ -41,7 +41,15 @@ platform :android do
 
   desc "Build Release APK"
    lane :build_apk do
-     gradle(task:"assembleRelease")
+     gradle(
+       task:"assembleRelease",
+       properties: {
+         "android.injected.signing.store.file" => keystore_path,
+         "android.injected.signing.store.password" => keystore_password,
+         "android.injected.signing.key.alias" => keystore_alias,
+         "android.injected.signing.key.password" => keystore_password
+        }
+     )
   end
 
   desc "Build release app bundle"
@@ -68,5 +76,7 @@ platform :android do
      increment_vc
 
      build_bundle
+
+#      upload_to_play_store(release_status:"draft")
   end
 end

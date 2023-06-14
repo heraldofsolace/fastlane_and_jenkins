@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'jacoco'
+    //id 'jacoco'
 }
 
 android {
@@ -9,20 +9,20 @@ android {
     compileSdk 33
 
 
-    testOptions {
-        unitTests.all {
-            jacoco {
-                includeNoLocationClasses = true
-                excludes = ['jdk.internal.*']
-            }
-        }
-    }
+//    testOptions {
+//        unitTests.all {
+//            jacoco {
+//                includeNoLocationClasses = true
+//                excludes = ['jdk.internal.*']
+//            }
+//        }
+//    }
 
     // If you're using Android Gradle Plugin 4.0.0 or above, add the following
     // configuration to generate Jacoco reports for instrumentation tests
-    jacoco {
-        version "0.8.7"
-    }
+//    jacoco {
+//        version "0.8.7"
+//    }
 
     defaultConfig {
         applicationId "com.example.jest"
@@ -39,7 +39,7 @@ android {
 
     buildTypes {
         release {
-            testCoverageEnabled true
+            //testCoverageEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
