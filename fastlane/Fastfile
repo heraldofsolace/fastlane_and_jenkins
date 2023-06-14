@@ -1,6 +1,5 @@
 default_platform(:android)
 
-
 platform :android do
 
   desc "Clean Build Folder"
@@ -27,6 +26,11 @@ platform :android do
 
   desc "Build Release APK"
    lane :build_apk do
+      # Set the signing configurations from environment variables
+      keystore_path = ENV['ANDROID_KEYSTORE_PATH']
+      keystore_alias = ENV['ANDROID_KEYSTORE_ALIAS']
+      keystore_password = ENV['ANDROID_KEYSTORE_PASSWORD']
+
      gradle(
        task:"assembleRelease",
        properties: {
