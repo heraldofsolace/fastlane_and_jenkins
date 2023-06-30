@@ -1,0 +1,33 @@
+default_platform(:android)  
+  
+platform :android do  
+  
+  desc "Clean Build Folder"  
+  lane :clean do  
+    gradle(task: "clean")  
+  end  
+  
+  desc "Runs all the tests"  
+  lane :test do  
+    gradle(  
+    tasks: ["test", "connectedAndroidTest"],  
+    properties: {  
+          "coverage" => "true"  
+  }  
+    )  
+  end  
+  
+  desc "Increment version code"  
+   lane :increment_vc do  
+     increment_version_code(  
+         gradle_file_path: "./app/build.gradle",  
+     )  
+  end  
+  
+  desc "Build Release APK"  
+   lane :build_apk do  
+     gradle(  
+       task:"assembleRelease" 
+     )  
+  end   
+end

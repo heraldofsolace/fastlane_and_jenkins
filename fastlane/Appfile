@@ -1,0 +1,2 @@
+json_key_file("/home/aniket/AndroidStudioProjects/MyApplication/api-7435817266616443277-761181-2a307d7c58cf.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.example.jest") # e.g. com.krausefx.app
